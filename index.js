@@ -6,8 +6,19 @@ function updateView() {
     console.log('触发视图更新啦')
 }
 // 把原目标对象 转变 为响应式的对象
+const options = {
+    set(target, key, value, reciver) {
+        updateView()
+        return Reflect.set(target, key, value, reciver)
+    },
+    get(target, key, reciver) {
+        return Reflect.get(target, key, reciver)
+    },
+    deleteProperty(target, key) {
+        return Reflect.deleteProperty(target, key)
+    }
+}
 function reactive(target) {
-    // todo 具体如何转变，以及绑定视图更新方法
     let proxyed = new Proxy(target, options)
     return proxyed
 }

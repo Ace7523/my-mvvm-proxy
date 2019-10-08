@@ -6,3 +6,10 @@
 2.  把数据变为响应式数据的方法
 3.  测试数据
 4.  改变测试数据 触发更新视图方法
+
+#### 第二次提交
+
+实现把原数据转变为响应式数据的reactive方法
+
+1. let proxyed = new Proxy(target, options)
+2. 完善 options
