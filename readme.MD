@@ -13,3 +13,10 @@
 
 1. let proxyed = new Proxy(target, options)
 2. 完善 options
+
+#### 第三次提交
+
+继续完善reactive方法
+
+1. 利用递归 对测试数据深层次代理
+2. 例如 本测试数据中 obj.array也是对象，所以在获取obj.array的时候，判断是否是对象，如果是的话，对这个对象也执行reactive方法，让这对象也成为响应式对象，以此类推，就可以把测试数据全部转变为响应式对象

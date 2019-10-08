@@ -5,6 +5,9 @@
 function updateView() {
     console.log('触发视图更新啦')
 }
+function isObject(t) {
+    return typeof t === 'object' && t !== null
+}
 // 把原目标对象 转变 为响应式的对象
 const options = {
     set(target, key, value, reciver) {
@@ -12,13 +15,21 @@ const options = {
         return Reflect.set(target, key, value, reciver)
     },
     get(target, key, reciver) {
-        return Reflect.get(target, key, reciver)
+        const res = Reflect.get(target, key, reciver)
+        if(isObject(target[key])){
+            return reactive(res)
+        }
+        return res
     },
     deleteProperty(target, key) {
         return Reflect.deleteProperty(target, key)
     }
 }
 function reactive(target) {
+    if(!isObject(target)){
+        return target
+    }
+    
     let proxyed = new Proxy(target, options)
     return proxyed
 }
