@@ -27,12 +27,19 @@ const options = {
         return Reflect.deleteProperty(target, key)
     }
 }
+// 用来做缓存
+const toProxy = new WeakMap()
+
 function reactive(target) {
     if(!isObject(target)){
         return target
     }
-
+    // 如果已经代理过了这个对象，则直接返回代理后的结果即可
+    if(toProxy.get(target)){
+        return toProxy.get(target)
+    }
     let proxyed = new Proxy(target, options)
+    toProxy.set(target, proxyed)
     return proxyed
 }
 
