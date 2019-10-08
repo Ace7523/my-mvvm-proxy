@@ -11,7 +11,9 @@ function isObject(t) {
 // 把原目标对象 转变 为响应式的对象
 const options = {
     set(target, key, value, reciver) {
-        updateView()
+        if(target.hasOwnProperty(key)){
+            updateView()
+        }
         return Reflect.set(target, key, value, reciver)
     },
     get(target, key, reciver) {
@@ -29,7 +31,7 @@ function reactive(target) {
     if(!isObject(target)){
         return target
     }
-    
+
     let proxyed = new Proxy(target, options)
     return proxyed
 }
